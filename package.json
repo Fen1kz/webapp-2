@@ -7,5 +7,10 @@
     "test": "test"
   },
   "author": "Fen1kz",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "gulp": "3.9.0",
+    "lodash": "4.0.0",
+    "webapp-2-gulp-scripts": "file:gulp-scripts"
+  }
 }
