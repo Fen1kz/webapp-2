@@ -1,5 +1,7 @@
-node_modules
 .env
 .idea
 .local
-client
+/client
+/server/.config
+/logs
+/node_modules

@@ -1,41 +1,19 @@
-require("babel-register");
+var express = require("express");
+var bodyParser = require("body-parser");
 
-var _ = require('lodash');
-var express = require('express');
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
+var logger = require("./utils/logger");
+var config = require("./config");
 
-var JSData = require('js-data');
-var DSMongoDBAdapter = require('js-data-mongodb');
+var port = process.env.PORT || 3000;
 
-var store = new JSData.DS();
-var adapter = new DSMongoDBAdapter(process.env.DB_MONGO_URL);
-store.registerAdapter('mongodb', adapter, {default: true});
-
-var app = express();
-
-let routerAPI = express.Router();
-
-routerAPI.get('/', (req, res) => {
-    res.status(200).json({msg: 'OK'});
-});
-
-let DefaultRESTController = require('./controllers/default');
-['CharClass'].forEach((modelName) => {
-    let model = store.defineResource(require('../shared/model/' + _.kebabCase(modelName)));
-    let controller = new DefaultRESTController(model);
-    let router = controller.route(express.Router());
-    routerAPI.use('/' + model.name, router);
-});
-
-app
-    .use(bodyParser.json()) // support json encoded bodies
-    .use(bodyParser.urlencoded({extended: true})) // support encoded bodies
-    .use(express.static(__dirname + '/../dist'))
-    .use('/api', routerAPI)
-    .use(function (err, req, res, next) {
-        console.error(err);
-        res.status(500).send('ERROR: Something broke!');
+var app = express()
+    .set('superSecret', config.secret)
+    .use(require('morgan')('tiny', {stream: logger.stream}))
+    .use(bodyParser.urlencoded({ extended: false }))
+    .use(bodyParser.json())
+    .get('/', function(req, res) {
+        res.send('Hello! The API is at http://localhost:' + port + '/api');
     })
+    .listen(port);
 
-    .listen(process.env.PORT || 5000);
+console.log('Magic happens at http://localhost:' + port);

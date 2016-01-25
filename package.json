@@ -18,9 +18,12 @@
     "babelify": "7.2.0",
     "babylon": "6.3.13",
     "bluebird": "3.1.4",
+    "body-parser": "1.14.2",
     "browserify": "13.0.0",
     "browserify-incremental": "3.0.1",
     "browserify-shim": "3.8.12",
+    "express": "4.13.4",
+    "glob": "6.0.4",
     "gulp": "3.9.0",
     "gulp-concat": "2.6.0",
     "gulp-cssnano": "2.1.0",
@@ -37,16 +40,19 @@
     "js-data": "2.8.2",
     "js-data-angular": "3.1.0",
     "js-data-mongodb": "0.5.1",
+    "jsonwebtoken": "5.5.4",
     "lodash": "4.0.0",
     "merge-stream": "1.0.0",
     "moduleify": "0.2.2",
     "mongodb": "2.1.4",
     "mongoose": "4.3.7",
+    "morgan": "1.6.1",
     "require-dir": "0.3.0",
     "rimraf": "2.5.1",
     "stringify": "3.2.0",
     "through-pipes": "0.0.4",
     "uglifyify": "3.0.1",
-    "vinyl-source-stream": "1.1.0"
+    "vinyl-source-stream": "1.1.0",
+    "winston": "2.1.1"
   }
 }
