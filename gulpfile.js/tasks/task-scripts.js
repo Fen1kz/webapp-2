@@ -1,43 +1,39 @@
-let _ = require('lodash');
-let browserifyIncremental = require('browserify-incremental');
-let browserify = require('browserify');
-let moduleify = require('moduleify');
-let source = require('vinyl-source-stream');
-let merge = require('merge-stream');
+var _ = require('lodash');
+var browserifyIncremental = require('browserify-incremental');
+var browserify = require('browserify');
+var source = require('vinyl-source-stream');
+var merge = require('merge-stream');
 
-let packageJson = require('../../package.json');
-let dependencies = Object.keys(packageJson && packageJson.dependencies || {});
-
-let requireBundle = (prebundle, libs) => _.reduce(libs, (prebundle, value, key) => {
+var requireBundle = (prebundle, libs) => _.reduce(libs, (prebundle, value, key) => {
     return prebundle.require(key, {expose: value});
 }, prebundle);
 
-export default function (gulp, $, config) {
-    let dirs = config.dirs;
-    let globs = config.globs;
+module.exports = function (gulp, $, config) {
+    var dirs = config.dirs;
+    var globs = config.globs;
+    var dependencies = config.dependencies;
 
-    let browserifyShimConfig = _.reduce(globs.scripts.shims, (obj, v, k) => {
+    var browserifyShimConfig = _.reduce(globs.scripts.shims, (obj, v, k) => {
         obj[k] = (typeof v === 'string' ? v.replace('global:', '') : v.exports);
         return obj;
     }, {});
 
     gulp.task('scripts:libs', () => {
-        let node_modules = browserify(_.assign(
+        var node_modules = browserify(_.assign(
             {}
             , config.browserify
             , {
                 noParse: dependencies
+                , paths: config.browserifyPaths
             }))
-            .require(dependencies)
-            //.transform({
-            //    global: true
-            //}, 'uglifyify')
+            .require(dependencies);
+        if (config.production) node_modules = node_modules.transform({global: true}, 'uglifyify');
+        node_modules = node_modules.bundle();
+
+        var commonjs = requireBundle(browserify(config.browserify), globs.scripts.commonjs)
             .bundle();
 
-        let commonjs = requireBundle(browserify(config.browserify), globs.scripts.commonjs)
-            .bundle();
-
-        let shim = requireBundle(browserify(config.browserify), browserifyShimConfig)
+        var shim = requireBundle(browserify(config.browserify), browserifyShimConfig)
             .transform('browserify-shim')
             .bundle();
 
@@ -46,18 +42,16 @@ export default function (gulp, $, config) {
             .pipe(gulp.dest(`${dirs.dist}/js`))
     });
 
-    //let bundler = browserify(`${dirs.src}/js/app.js`, {
-    let bundler = browserifyIncremental(`${dirs.src}/js/app.js`, _.assign({}, config.browserify, {
-        paths: ['./src/js/']
+    var bundler = browserifyIncremental(`${dirs.src}/js/app.js`, _.assign({}, config.browserify, {
+        paths: config.browserifyPaths
     }))
         .external(_.values(browserifyShimConfig))
         .external(_.values(globs.scripts.commonjs))
         .external(dependencies)
         .transform('babelify')
-        //.transform({
-        //    global: true
-        //}, 'uglifyify')
         .transform('stringify', config.stringify);
+
+    if (config.production) bundler = bundler.transform({global: true}, 'uglifyify');
 
     gulp.task('scripts:local', () => {
         return bundler
@@ -72,4 +66,4 @@ export default function (gulp, $, config) {
     });
 
     gulp.task('scripts', ['scripts:libs', 'scripts:local']);
-}
+};

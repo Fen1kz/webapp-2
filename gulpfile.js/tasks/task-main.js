@@ -1,6 +1,6 @@
-export default function (gulp, $, config) {
-    let dirs = config.dirs;
-    let globs = config.globs;
+module.exports = function (gulp, $, config) {
+    var dirs = config.dirs;
+    var globs = config.globs;
 
     gulp.task('dist', $.sequence('clean:all', ['copy', 'build', 'scripts', 'styles']));
 
@@ -10,12 +10,10 @@ export default function (gulp, $, config) {
         $.livereload.listen(function (err) {
             if (err) return console.log(err);
         });
-        //gulp.watch(`${dirs.src}/**/*.js`, ['build', 'reload']);
         $.watch(globs.src, {
             readDelay: 200
             , verbose: true
         }, () => {
-            //$.sequence('build')();
             $.sequence(['copy:index', 'build'], 'reload')();
         });
     });

@@ -1,8 +1,8 @@
-let rimraf = require('rimraf');
+var rimraf = require('rimraf');
 
-export default function (gulp, $, config, helpers) {
-    let dirs = config.dirs;
-    let globs = config.globs;
+module.exports = function (gulp, $, config, helpers) {
+    var dirs = config.dirs;
+    var globs = config.globs;
 
     gulp.task('clean:all', (cb) => {
         return rimraf(globs.dist, cb);

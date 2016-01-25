@@ -9,6 +9,6 @@
 
 module.exports = {
     // Where compiled scripts and assets should be placed.
-    'src': './src'
-    , 'dist': './dist'
+    'src': './client-src'
+    , 'dist': './client'
 };

@@ -1,6 +1,6 @@
-export default function (gulp, $, config, helpers) {
-    let dirs = config.dirs;
-    let globs = config.globs;
+module.exports = function (gulp, $, config, helpers) {
+    var dirs = config.dirs;
+    var globs = config.globs;
 
     gulp.task('copy:index', () => {
         return gulp.src(globs.index)
@@ -12,5 +12,10 @@ export default function (gulp, $, config, helpers) {
             .pipe(gulp.dest(`${dirs.dist}/assets`))
     });
 
-    gulp.task('copy', ['copy:index', 'copy:assets']);
+    gulp.task('copy:fonts', () => {
+        return gulp.src(globs.fonts)
+            .pipe(gulp.dest(`${dirs.dist}/fonts`))
+    });
+
+    gulp.task('copy', ['copy:index', 'copy:assets', 'copy:fonts']);
 }

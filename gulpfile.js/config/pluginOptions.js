@@ -5,9 +5,23 @@
 
 'use strict';
 
-let _ = require('lodash');
+var _ = require('lodash');
 
-module.exports = {
-    browserify: {debug: true}
-    , stringify: ['.html']
+module.exports = (gulp, $, config) => {
+    $.util.log($.util.colors.yellow('Running in ' + ($.util.env.production ? 'production' : 'development') + ' config'));
+    return {
+        browserify: {debug: !$.util.env.production}
+        , browserifyPaths: [`${config.dirs.src}/js`, './shared']
+        , stringify: ['.html']
+        , production: $.util.env.production
+        , dependencies: [
+            'angular'
+            , 'angular-animate'
+            , 'angular-ui-router'
+            , 'bluebird'
+            , 'js-data'
+            , 'js-data-angular'
+            , 'lodash'
+        ]
+    }
 };

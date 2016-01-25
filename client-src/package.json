@@ -1,0 +1,11 @@
+{
+  "name": "rlike-client",
+  "version": "0.0.0",
+  "description": "description",
+  "private": true,
+  "browserify-shim": "../gulpfile.babel.js/config/browserify.shim.js",
+  "author": "me",
+  "license": "ISC",
+  "dependencies": {
+  }
+}

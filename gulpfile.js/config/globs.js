@@ -13,9 +13,10 @@
 var dirs = require('./dirs');
 
 var globs = {
-    src: [`${dirs.src}/**/*.{js,html}`]
+    src: [`${dirs.src}/**/*.{js,json,html,scss,css,txt,yml}`]
     , index: [`${dirs.src}/index.html`]
     , assets: [`${dirs.src}/assets/**/*`]
+    , fonts: []
     , scripts: {
         local: [`${dirs.src}/js/**/*.js`]
         , commonjs: {}
@@ -29,9 +30,7 @@ var globs = {
     , styles: {
         local: [`${dirs.src}/css/**/*.{css,scss}`]
         , extension: []
-        , vendor: [
-            //`node_modules/angular-material/angular-material.min.css`
-        ]
+        , vendor: []
     }
     , dist: `${dirs.dist}/**/*`
 };

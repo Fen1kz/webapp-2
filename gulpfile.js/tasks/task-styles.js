@@ -1,13 +1,13 @@
-let throughPipes = require('through-pipes');
+var throughPipes = require('through-pipes');
 
-export default function (gulp, $, config) {
-    let dirs = config.dirs;
-    let globs = config.globs;
+module.exports = function (gulp, $, config) {
+    var dirs = config.dirs;
+    var globs = config.globs;
 
-    let compileMinify = () => (throughPipes((readable) => (readable
+    var compileMinify = () => (throughPipes((readable) => (readable
             .pipe($.sourcemaps.init())
             .pipe($.if('*.scss', $.sass().on('error', $.sass.logError)))
-            .pipe($.minifyCss())
+            .pipe($.cssnano())
             .pipe($.sourcemaps.write())
     )));
 
@@ -19,7 +19,7 @@ export default function (gulp, $, config) {
     });
 
     gulp.task('styles:vendor', () => {
-        let glob = [].concat(globs.styles.extension, globs.styles.vendor);
+        var glob = [].concat(globs.styles.extension, globs.styles.vendor);
         return gulp.src(glob)
             .pipe($.expectFile({reportUnexpected: false}, globs.styles.vendor))
             .pipe(compileMinify())

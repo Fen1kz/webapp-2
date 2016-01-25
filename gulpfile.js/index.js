@@ -1,17 +1,17 @@
 'use strict';
 
-let _ = require('lodash');
-let gulp = require('gulp');
-let gulpPlugins = require('gulp-load-plugins')();
-let tasks = require('require-dir')('./tasks');
-let config = require('./config');
+var _ = require('lodash');
+var gulp = require('gulp');
+var gulpPlugins = require('gulp-load-plugins')();
+var tasks = require('require-dir')('./tasks');
+var localPlugins = require('require-dir')('./plugins');
 
-let localPlugins = require('require-dir')('./plugins');
+var config = require('./config')(gulp, gulpPlugins);
 
 Object.keys(localPlugins)
-    .forEach((key) => gulpPlugins[_.camelCase(key)] = localPlugins[key].default(gulp, gulpPlugins, config));
+    .map((key) => gulpPlugins[_.camelCase(key)] = localPlugins[key](gulp, gulpPlugins, config));
 
 Object.keys(tasks)
-    .map((key) => tasks[key].default)
+    .map((key) => tasks[key])
     .filter((obj) => typeof obj === 'function')
     .forEach((task) => task(gulp, gulpPlugins, config));
