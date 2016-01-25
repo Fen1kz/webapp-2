@@ -1,0 +1,11 @@
+{
+  "name": "webapp-2",
+  "version": "0.0.1",
+  "description": "Standard Webapp v2",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Fen1kz",
+  "license": "ISC"
+}
