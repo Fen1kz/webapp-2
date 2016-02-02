@@ -1,1 +1,1 @@
-web: $NODE_CMD --optimize_for_size --gc_interval=100 server/server.js
+web: $NODE_CMD --use_strict --optimize_for_size --gc_interval=100 server/server.js

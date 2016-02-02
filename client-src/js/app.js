@@ -1,4 +1,4 @@
-let angular = require('angular');
+var angular = require('angular');
 require('angular-ui-router');
 require('js-data');
 require('js-data-angular');
