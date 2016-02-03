@@ -19,6 +19,7 @@ module.exports = (gulp, $, config) => {
       , 'angular-animate'
       , 'angular-ui-router'
       , 'angular-material'
+      , 'angular-messages'
       , 'bluebird'
       , 'js-data'
       , 'js-data-angular'

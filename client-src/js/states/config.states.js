@@ -1,6 +1,7 @@
 module.exports = (app) => {
-  //require('./home/config.home.js')(app);
-  require('./admin/config.admin.js')(app);
+  require('./admin/config.admin')(app);
+  require('./auth/config.auth')(app);
+  require('./home/config.home')(app);
 
   app.config(['$stateProvider', ($stateProvider) => {
   }]);

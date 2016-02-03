@@ -1,29 +1,23 @@
 <!DOCTYPE html>
-<html ng-app="rlike">
+<html ng-app='rlike'>
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>{file.meta.title}</title><!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="css/vendor.min.css">
-  <link rel="stylesheet" href="css/style.min.css">
+  <meta charset='UTF-8'/>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'/>
+  <title>{{state.displayName}}</title><!-- Compiled and minified CSS -->
+  <link rel='stylesheet' href='css/vendor.min.css'>
+  <link rel='stylesheet' href='css/style.min.css'>
   <!-- Compiled and minified JavaScript -->
-  <script src="js/vendor.min.js"></script>
-  <script src="js/bundle.js"></script>
+  <script src='js/vendor.min.js'></script>
+  <script src='js/bundle.js'></script>
 </head>
 <body>
-<div layout="column" layout-fill>
+<div layout='column' layout-fill>
   <md-toolbar>
-    <div class="md-toolbar-tools">
-      <span>My App's Title</span>
-      <!-- fill up the space between left and right area -->
-      <span flex></span>
-      <md-button>
-        Right Bar Button
-      </md-button>
+    <div class='md-toolbar-tools' ui-view="toolbar">
+      <span></span>
     </div>
   </md-toolbar>
-  <md-content>
-    Hello!
+  <md-content ui-view='main'>
   </md-content>
 </div>
 </body>

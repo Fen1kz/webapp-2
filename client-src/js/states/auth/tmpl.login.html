@@ -1,0 +1,19 @@
+﻿<div>
+  <form ng-submit='ctrl.submitForm()' name='loginForm' layout='column' layout-align='center center' novalidate>
+    <md-input-container>
+      <label>Login</label>
+      <input name=login ng-model=ctrl.item.login required/>
+      <div ng-messages='loginForm.login.$error'>
+        <div ng-message=required>This is required.</div>
+      </div>
+    </md-input-container>
+    <md-input-container>
+      <label>Password</label>
+      <input name=password ng-model='ctrl.item.password' required/>
+      <div ng-messages='loginForm.password.$error'>
+        <div ng-message='required'>This is required.</div>
+      </div>
+    </md-input-container>
+    <md-button type='submit' class='md-raised md-primary'>Submit</md-button>
+  </form>
+</div>

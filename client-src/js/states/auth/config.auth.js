@@ -1,10 +1,12 @@
 module.exports = (app) => {
   app.config(['$stateProvider', ($stateProvider) => {
-    $stateProvider.state('app.home', {
-      url: '/'
+    $stateProvider.state('app.login', {
+      url: '/login'
       , views: {
         'main@': {
-          template: require('./tmpl.home.html')
+          template: require('./tmpl.login.html')
+          , controller: require('./ctrl.login')
+          , controllerAs: 'ctrl'
         }
       }
     });

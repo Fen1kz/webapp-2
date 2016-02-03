@@ -1,11 +1,16 @@
 module.exports = (app) => {
   app.config(['$stateProvider', ($stateProvider) => {
-    $stateProvider.state('app.home', {
-      url: '/'
+    $stateProvider.state('app.admin', {
+      url: '/admin'
       , views: {
         'main@': {
-          template: require('./admin.html')
+          template: require('./tmpl.admin.html')
         }
+      }
+      , resolve: {
+        security: ['Principal', function (Principal) {
+          return Principal.checkAccess('admin');
+        }]
       }
     });
   }]);
