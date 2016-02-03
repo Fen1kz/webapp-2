@@ -1,4 +1,5 @@
 module.exports = {
-    name: 'User'
-    , idAttribute: '_id'
+  name: 'User'
+  , idAttribute: '_id'
+  , endpoint: 'users'
 };

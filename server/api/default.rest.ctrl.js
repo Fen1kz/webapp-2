@@ -1,17 +1,14 @@
 var Promise = require('bluebird');
 
 module.exports = class DefaultRESTCtrl extends require('./default.ctrl') {
-    constructor(model) {
-        super();
-        this.model = model;
+    init(model) {
+      this.model = model;
+      this.baseUrl = '/' + this.model.endpoint;
     }
 
-    route(router) {
-        return router
-            .get('/', this.serve(this.findAll).bind(this))
-            .get('/:id', this.serve(this.find).bind(this))
-            //.get('/:id', this.serve(this.find).bind(this))
-            ;
+    start() {
+      this.serve('get', '/', this.findAll);
+      this.serve('get', '/:id', this.find);
     }
 
     findAll() {

@@ -13,26 +13,28 @@
 var dirs = require('./dirs');
 
 var globs = {
-    src: [`${dirs.src}/**/*.{js,json,html,scss,css,txt,yml}`]
-    , index: [`${dirs.src}/index.html`]
-    , assets: [`${dirs.src}/assets/**/*`]
-    , fonts: []
-    , scripts: {
-        local: [`${dirs.src}/js/**/*.js`]
-        , commonjs: {}
-        , shims: {
-            //'./vendor/x.js'    :  { 'exports': '$' },
-            //'./vendor/x-ui.js' :  { 'depends': { '../vendor/x.js': null } },
-            //'./vendor/y.js'    :  { 'exports': 'Y', 'depends': { '../vendor/x.js': '$' } },
-            //'/vendor/z.js'    :  { 'exports': 'zorro', 'depends': { '../vendor/x.js': '$', '../vendor/y.js': 'YNOT' } }
-        }
+  src: [`${dirs.src}/**/*.{js,json,html,scss,css,txt,yml}`]
+  , index: [`${dirs.src}/index.html`]
+  , assets: [`${dirs.src}/assets/**/*`]
+  , fonts: []
+  , scripts: {
+    local: [`${dirs.src}/js/**/*.js`]
+    , commonjs: {}
+    , shims: {
+      //'./vendor/x.js'    :  { 'exports': '$' },
+      //'./vendor/x-ui.js' :  { 'depends': { '../vendor/x.js': null } },
+      //'./vendor/y.js'    :  { 'exports': 'Y', 'depends': { '../vendor/x.js': '$' } },
+      //'/vendor/z.js'    :  { 'exports': 'zorro', 'depends': { '../vendor/x.js': '$', '../vendor/y.js': 'YNOT' } }
     }
-    , styles: {
-        local: [`${dirs.src}/css/**/*.{css,scss}`]
-        , extension: []
-        , vendor: []
-    }
-    , dist: `${dirs.dist}/**/*`
+  }
+  , styles: {
+    local: [`${dirs.src}/css/**/*.{css,scss}`]
+    , extension: []
+    , vendor: [
+      `node_modules/angular-material/angular-material.scss`
+    ]
+  }
+  , dist: `${dirs.dist}/**/*`
 };
 
 module.exports = globs;

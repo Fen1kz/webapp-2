@@ -4,7 +4,7 @@ module.exports = (app) => {
             url: '/'
             , views: {
                 'main@': {
-                    template: require('./home.html')
+                    template: require('./admin.html')
                 }
             }
         });
