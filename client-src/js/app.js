@@ -28,6 +28,7 @@ app.config(['$urlRouterProvider', '$stateProvider', ($urlRouterProvider, $stateP
 <md-button ui-sref="app.login">login</md-button>
 <md-button ui-sref="app.logout">logout</md-button>
 <md-button ui-sref="app.admin">admin</md-button>
+<md-button ng-click="appCtrl.waSpinner = !appCtrl.waSpinner">asdfasdfas</md-button>
 `
         }
       }
@@ -57,5 +58,6 @@ app.run(['DS', function (DS) {
   //DS.defineResource(require('model/char-class'))
 }]);
 
+require('./ctrl.app')(app);
 require('./common/config.common.js')(app);
 require('./states/config.states.js')(app);

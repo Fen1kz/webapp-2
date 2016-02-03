@@ -18,7 +18,7 @@ module.exports = class LoginCtrl extends require('./default.ctrl') {
     return model.User.findAll({
       name: req.body.name
     }).spread((user) => {
-      if (!user) throw [404, 'user not found'];
+      if (!user) throw [400, 'user not found'];
       if (user.password !== req.body.password) throw [401, 'wrong password'];
 
       var token = jwt.sign(user, process.env.SECRET, {

@@ -19,6 +19,13 @@ var app = express()
   .use(express.static('client'))
   .use('/', require('./api/api.ctrl').createRouter())
   .use('/', require('./api/auth.ctrl').createRouter())
+  .use(function(err, req, res, next) {
+    if (Array.isArray(err)) {
+      res.status(err[0]).json(err[1]);
+    } else {
+      $log.error(err);
+    }
+  })
   .listen(port);
 
 $log.info('Magic happens at http://localhost:' + port);

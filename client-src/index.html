@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app='rlike'>
+<html ng-app='rlike' ng-controller="AppCtrl as appCtrl">
 <head>
   <meta charset='UTF-8'/>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'/>
@@ -11,14 +11,14 @@
   <script src='js/bundle.js'></script>
 </head>
 <body>
-<div layout='column' layout-fill>
+<div layout-fill layout="column">
   <md-toolbar>
     <div class='md-toolbar-tools' ui-view="toolbar">
-      <span></span>
     </div>
   </md-toolbar>
-  <md-content ui-view='main'>
+  <md-content ui-view='main' layout="column" layout-align="center center">
   </md-content>
 </div>
+<wa-spinner ng-show="appCtrl.waSpinner"></wa-spinner>
 </body>
 </html>

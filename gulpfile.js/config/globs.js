@@ -15,7 +15,7 @@ var dirs = require('./dirs');
 var globs = {
   src: [`${dirs.src}/**/*.{js,json,html,scss,css,txt,yml}`]
   , index: [`${dirs.src}/index.html`]
-  , assets: [`${dirs.src}/assets/**/*`]
+  , assets: [`${dirs.src}/**/*.gif`]
   , fonts: []
   , scripts: {
     local: [`${dirs.src}/js/**/*.js`]

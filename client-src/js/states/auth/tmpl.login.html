@@ -14,6 +14,6 @@
         <div ng-message='required'>This is required.</div>
       </div>
     </md-input-container>
-    <md-button type='submit' class='md-raised md-primary'>Submit</md-button>
+    <md-button type='submit' class='md-raised md-primary' ng-disabled="loginForm.$invalid || appCtrl.waSpinner">Submit</md-button>
   </form>
 </div>
