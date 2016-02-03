@@ -8,7 +8,7 @@
 'use strict';
 
 module.exports = {
-    // Where compiled scripts and assets should be placed.
-    'src': './client-src'
-    , 'dist': './client'
+  // Where compiled scripts and assets should be placed.
+  'src': './client-src'
+  , 'dist': './client'
 };
