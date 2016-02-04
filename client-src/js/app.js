@@ -2,6 +2,7 @@ var angular = require('angular');
 require('angular-ui-router');
 require('angular-material');
 require('angular-messages');
+require('angular-mocks');
 require('js-data');
 require('js-data-angular');
 
@@ -25,10 +26,10 @@ app.config(['$urlRouterProvider', '$stateProvider', ($urlRouterProvider, $stateP
         'toolbar@': {
           template: `
 <md-button ui-sref="app.home">{{::APP_NAME}}</md-button>
-<md-button ui-sref="app.login">login</md-button>
-<md-button ui-sref="app.logout">logout</md-button>
-<md-button ui-sref="app.admin">admin</md-button>
-<md-button ng-click="appCtrl.waSpinner = !appCtrl.waSpinner">asdfasdfas</md-button>
+<md-button ui-sref="app.login" ng-hide="appCtrl.checkScope('auth')">login</md-button>
+<md-button ng-click="appCtrl.logout()" ng-show="appCtrl.checkScope('auth')">logout</md-button>
+<md-button ui-sref="app.admin" ng-show="appCtrl.checkScope('admin')">admin</md-button>
+<md-button ng-click="appCtrl.waSpinner = !appCtrl.waSpinner">{{appCtrl.checkScope('auth')}}</md-button>
 `
         }
       }
@@ -39,10 +40,16 @@ app.config(['DSProvider', 'DSHttpAdapterProvider', function (DSProvider, DSHttpA
   DSProvider.defaults.basePath = '/api';
 }]);
 
-app.run(['$rootScope', '$log', function ($rootScope, $log) {
+app.run(['$rootScope', '$log', '$state', 'Principal', function ($rootScope, $log, $state, Principal) {
   $rootScope.APP_NAME = APP_NAME;
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
     $log.debug('$stateChangeStart', toState.name, '>', fromState.name);
+    if (toState.scopes) {
+      if (!Principal.checkScope(toState.scopes[0])) {
+        event.preventDefault();
+        $state.go('app.home');
+      }
+    }
   });
   $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
     $log.debug('$stateChangeSuccess', toState.name, '>', fromState.name);

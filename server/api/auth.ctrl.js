@@ -2,6 +2,7 @@ var Promise = require('bluebird');
 var model = require('../db/model');
 var jwt = require('jsonwebtoken');
 var $log = require('intel').getLogger('app.auth');
+var md5 = require('md5');
 
 module.exports = class LoginCtrl extends require('./default.ctrl') {
   init() {
@@ -16,17 +17,21 @@ module.exports = class LoginCtrl extends require('./default.ctrl') {
 
   login(req) {
     return model.User.findAll({
-      name: req.body.name
+      login: req.body.login
     }).spread((user) => {
       if (!user) throw [400, 'user not found'];
-      if (user.password !== req.body.password) throw [401, 'wrong password'];
+      if (user.password !== md5(req.body.password)) throw [401, 'wrong password'];
 
       var token = jwt.sign(user, process.env.SECRET, {
         expiresIn: 60 * 60 * 24 //@TODO config
       });
 
       // return the information including token as JSON
-      return token;
+      return {
+        login: user.login
+        , token: token
+        , scopes: user.scopes
+      };
     });
   }
 

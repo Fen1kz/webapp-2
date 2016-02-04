@@ -7,11 +7,7 @@ module.exports = (app) => {
           template: require('./tmpl.admin.html')
         }
       }
-      , resolve: {
-        security: ['Principal', function (Principal) {
-          return Principal.checkAccess('admin');
-        }]
-      }
+      , scopes: ['admin']
     });
   }]);
 

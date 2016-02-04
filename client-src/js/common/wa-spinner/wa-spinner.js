@@ -10,7 +10,8 @@ function waSpinner() {
     }
     , template: require('./wa-spinner.html')
     , link: (scope, element, attrs) => {
-      element[0].style['z-index'] = 3;
+      //element[0].style['z-index'] = 3;
+      //element[0].querySelector('.wa-spinner-body').style['z-index'] = 3;
       element.parent().addClass('wa-spinner-host');
       scope.$watch('ngShow', (val) => {
         element.parent()[val ? 'addClass' : 'removeClass']('wa-spinner-host-on');
