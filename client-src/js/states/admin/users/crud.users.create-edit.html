@@ -1,0 +1,32 @@
+{{waCtrl.item | json}}
+{{ctrl.item | json}}
+{{item | json}}
+
+<md-input-container>
+  <label>Login</label>
+
+  <input name=login ng-model=waCtrl.item.login required/>
+
+  <div ng-messages='form.login.$error'>
+    <div ng-message=required>This is required.</div>
+  </div>
+</md-input-container>
+
+<md-input-container>
+  <label>Password</label>
+  <input name=password type=password ng-model='waCtrl.item.password'/>
+
+  <div ng-messages='form.password.$error'>
+    <div ng-message='required'>This is required.</div>
+  </div>
+</md-input-container>
+
+<fieldset class="standard">
+  <legend>Scopes</legend>
+  <div layout="row" layout-wrap flex>
+    <md-checkbox ng-checked="waCtrl.item.scopes['admin']"
+                 ng-click="waCtrl.item.scopes['admin'] = !waCtrl.item.scopes['admin']">
+      admin
+    </md-checkbox>
+  </div>
+</fieldset>

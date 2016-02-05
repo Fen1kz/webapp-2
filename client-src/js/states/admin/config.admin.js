@@ -1,5 +1,5 @@
 module.exports = (app) => {
-  app.config(['$stateProvider', ($stateProvider) => {
+  app.config(['$stateProvider', 'waCrudProvider', ($stateProvider, waCrudProvider) => {
     $stateProvider.state('app.admin', {
       url: '/admin'
       , views: {
@@ -8,6 +8,21 @@ module.exports = (app) => {
         }
       }
       , scopes: ['admin']
+    });
+    waCrudProvider.states({
+      name: 'app.admin'
+      , model: 'User'
+      , endpoint: 'users'
+      , view: 'main@'
+      , templates: {
+        list: require('./users/crud.users.list.html'),
+        create: require('./users/crud.users.create-edit.html'),
+        edit: require('./users/crud.users.create-edit.html'),
+        view: require('./users/crud.users.list.html')
+      }
+      , state: {
+        scopes: ['admin']
+      }
     });
   }]);
 

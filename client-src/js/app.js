@@ -40,6 +40,10 @@ app.config(['DSProvider', 'DSHttpAdapterProvider', function (DSProvider, DSHttpA
   DSProvider.defaults.basePath = '/api';
 }]);
 
+app.run(['DS', function (DS) {
+  require('loader.model')(DS);
+}]);
+
 app.run(['$rootScope', '$log', '$state', 'Principal', function ($rootScope, $log, $state, Principal) {
   $rootScope.APP_NAME = APP_NAME;
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
@@ -54,7 +58,7 @@ app.run(['$rootScope', '$log', '$state', 'Principal', function ($rootScope, $log
   $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
     $log.debug('$stateChangeSuccess', toState.name, '>', fromState.name);
     $rootScope.state = toState;
-    $rootScope.state.displayName = toState.name.replace(/^app/, APP_NAME).replace('.', '/');
+    $rootScope.state.displayName = toState.name.replace(/^app/, APP_NAME).replace(/\./g, '/');
   });
   $rootScope.$on('$stateChangeError', function (e, toState, toParams, fromState, fromParams, error) {
     $log.error(error);

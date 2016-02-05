@@ -10,12 +10,12 @@
   <script src='js/vendor.min.js'></script>
   <script src='js/bundle.js'></script>
 </head>
-<body layout-wrap>
+<body>
 <md-toolbar>
   <div class='md-toolbar-tools' ui-view="toolbar">
   </div>
 </md-toolbar>
-<md-content ui-view='main' layout="column" layout-align="center center" flex>
+<md-content flex-xs=100 flex-sm=80 flex-md=60 flex=40 ui-view='main' layout-padding>
 </md-content>
 <wa-spinner ng-show="appCtrl.waSpinner"></wa-spinner>
 </body>

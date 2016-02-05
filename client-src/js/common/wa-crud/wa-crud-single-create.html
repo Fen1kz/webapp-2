@@ -1,0 +1,9 @@
+<md-card>
+  <h1>Create {{waCrud.model}}</h1>
+  <form ng-submit='waCrud.create()' name='form' layout='column' novalidate>
+    <div layout="column" wa-transclude-scope></div>
+    <md-button type='submit' class='md-raised md-primary' ng-disabled="form.$invalid || $root.waSpinner">
+      Create
+    </md-button>
+  </form>
+</md-card>

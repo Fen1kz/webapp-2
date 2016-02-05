@@ -1,12 +1,7 @@
-module.exports = (app) => {
-  app
-    .config(['$httpProvider', function ($httpProvider) {
-      $httpProvider.interceptors.push(factory);
-    }])
-};
+module.exports = interceptor;
 
-factory.$inject = ['$q', '$injector'];
-function factory($q, $injector) {
+interceptor.$inject = ['$q', '$injector'];
+function interceptor($q, $injector) {
   return {
     requestError: function (request) {
       return $q.reject(request);

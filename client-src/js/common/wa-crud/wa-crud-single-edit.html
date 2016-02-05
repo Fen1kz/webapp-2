@@ -1,0 +1,9 @@
+<md-card>
+  <h1>Edit {{waCrud.model}}: {{waCrud.item._id}}</h1>
+  <form ng-submit='waCrud.edit()' name='form' layout='column' novalidate>
+    <div layout="column" wa-transclude-scope></div>
+    <md-button type='submit' class='md-raised md-primary' ng-disabled="loginForm.$invalid || $root.waSpinner">
+      Update
+    </md-button>
+  </form>
+</md-card>

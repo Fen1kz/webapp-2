@@ -1,0 +1,17 @@
+<md-list md-whiteframe="1">
+  <md-list-item layout-padding>
+    <h2>Users</h2>
+    <div class="md-secondary">
+      <md-button ng-click="$root.stateGo($event, '.create')" class='md-primary md-raised'>Create</md-button>
+    </div>
+  </md-list-item>
+  <md-divider ></md-divider>
+  <md-list-item ng-repeat="item in items track by item._id"
+                ng-click="$root.stateGo($event, '.view', {id: item._id})">
+    <div wa-transclude-scope></div>
+    <div class="md-secondary">
+      <md-button ng-click="$root.stateGo($event, '.edit', {id: item._id});">edit</md-button>
+      <md-button ng-click="delete(item._id)">delete</md-button>
+    </div>
+  </md-list-item>
+</md-list>

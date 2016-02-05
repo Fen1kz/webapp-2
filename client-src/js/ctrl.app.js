@@ -2,8 +2,8 @@ module.exports = (app) => {
   app.controller('AppCtrl', controller);
 };
 
-controller.$inject = ['$rootScope', 'Principal'];
-function controller($rootScope, Principal) {
+controller.$inject = ['$rootScope', '$state', 'Principal'];
+function controller($rootScope, $state, Principal) {
   var ctrl = this;
   $rootScope.$on('wa-spinner', (event, flag) => {
     ctrl.waSpinner = flag;
@@ -15,4 +15,10 @@ function controller($rootScope, Principal) {
 
   ctrl.checkScope = Principal.checkScope;
   ctrl.logout = Principal.logout;
+
+  $rootScope.stateGo = ($event, name, params) => {
+    $event.preventDefault();
+    $event.stopPropagation();
+    $state.go(name, params);
+  }
 }
