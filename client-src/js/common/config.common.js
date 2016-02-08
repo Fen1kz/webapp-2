@@ -13,5 +13,7 @@ module.exports = (app) => {
   app.directive('waCrudList', require('./wa-crud/wa-crud-list'));
   app.directive('waCrudSingle', require('./wa-crud/wa-crud-single'));
 
+  app.directive('waBreadcrumbs', require('./wa-breadcrumbs'));
+  app.directive('waCheckbox', require('./wa-checkbox'));
   app.directive('waTranscludeScope', require('./wa-transclude-scope'));
 };

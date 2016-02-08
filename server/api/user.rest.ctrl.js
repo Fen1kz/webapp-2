@@ -21,4 +21,13 @@ module.exports = class UserCtrl extends require('./default.rest.ctrl') {
     }, ['auth']);
     return this.model.create(user);
   }
+
+  update(req) {
+    var user = _.omit(req.body, '_id');
+    if (user.password !== void 0) user.password = md5(user.password);
+    console.log('GOING TO SAVE')
+    console.log(user);
+    console.log('GOING TO SAVE')
+    return this.model.update(req.params.id, user);
+  }
 };

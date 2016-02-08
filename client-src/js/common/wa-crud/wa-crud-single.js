@@ -20,34 +20,29 @@ function directive() {
     , bindToController: true
     , controllerAs: 'waCrud'
     , controller: ['$scope', '$state', '$stateParams', 'DS', function ($scope, $state, $stateParams, DS) {
-      //$scope.waCrud = this;
       var ctrl = this;
+
       var Resource = DS.definitions[ctrl.model];
 
-
-      switch (ctrl.action) {
-        case 'create':
-          ctrl.item = Resource.createInstance();
-          break;
-        case 'edit':
-        case 'view':
-          Resource.find($stateParams.id)
-            .then((item) => {
-              if (!item) $state.go('^');
-              ctrl.item = item;
-            })
-            .catch(() => $state.go('^'));
-          break;
+      if (ctrl.action === 'create') {
+        $scope.item = Resource.createInstance();
+      } else {
+        Resource.find($stateParams.id)
+          .then((item) => {
+            if (!Resource.is(item)) $state.go('^');
+            $scope.item = item;
+          })
+          .catch(() => $state.go('^'));
       }
 
       ctrl.create = () => {
-        return Resource.create(ctrl.item)
+        return Resource.create($scope.item)
           .then(() => {
             $state.go('^');
           });
       };
       ctrl.edit = () => {
-        return Resource.update(ctrl.item)
+        return Resource.update($scope.item._id, $scope.item)
           .then(() => {
             $state.go('^');
           });
