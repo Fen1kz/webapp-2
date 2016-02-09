@@ -26,10 +26,11 @@ app.config(['$urlRouterProvider', '$stateProvider', ($urlRouterProvider, $stateP
         'toolbar@': {
           template: `
 <md-button ui-sref="app.home">{{::APP_NAME}}</md-button>
-<md-button ui-sref="app.login" ng-hide="appCtrl.checkScope('auth')">login</md-button>
-<md-button ng-click="appCtrl.logout()" ng-show="appCtrl.checkScope('auth')">logout</md-button>
-<md-button ui-sref="app.admin" ng-show="appCtrl.checkScope('admin')">admin</md-button>
-<md-button ng-click="appCtrl.waSpinner = !appCtrl.waSpinner">{{appCtrl.checkScope('auth')}}</md-button>
+<md-button ui-sref="app.login" ng-hide="$root.checkScope('auth')">login</md-button>
+<md-button ui-sref="app.admin" ng-show="$root.checkScope('admin')">admin</md-button>
+<md-button ui-sref="app.rlconfig">Config</md-button>
+<md-button ng-click="appCtrl.logout()" ng-show="$root.checkScope('auth')">logout</md-button>
+<!--<md-button ng-click="$root.waSpinner = !$root.waSpinner">{{$root.checkScope('auth')}}</md-button>-->
 `
         }
       }
@@ -63,10 +64,6 @@ app.run(['$rootScope', '$log', '$state', 'Principal', function ($rootScope, $log
   $rootScope.$on('$stateChangeError', function (e, toState, toParams, fromState, fromParams, error) {
     $log.error(error);
   });
-}]);
-
-app.run(['DS', function (DS) {
-  //DS.defineResource(require('model/char-class'))
 }]);
 
 require('./ctrl.app')(app);

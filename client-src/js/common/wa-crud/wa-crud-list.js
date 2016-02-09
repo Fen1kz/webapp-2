@@ -12,14 +12,25 @@ function directive() {
     , template: require('./wa-crud-list.html')
     , bindToController: true
     , controllerAs: 'waCrudList'
-    , controller: ['$scope', 'DS', function ($scope, DS) {
+    , controller: ['$scope', '$mdDialog', 'DS', function ($scope, $mdDialog, DS) {
       var ctrl = this;
       var Resource = DS.definitions[ctrl.model];
       Resource.findAll();
       Resource.bindAll({}, $scope, 'items');
+
+
+      $scope.delete = ($event, item) => {
+        $event.preventDefault();
+        $event.stopPropagation();
+        $mdDialog.show($mdDialog.confirm()
+          .title('Delete ' + ctrl.model + '#' + item._id + '?')
+          .targetEvent($event)
+          .textContent('All of the banks have agreed to forgive you your debts.')
+          .ok('delete')
+          .cancel('cancel'))
+          .then(() => item.DSDestroy());
+      }
     }]
-    , link: function (scope, element, attrs, ctrl, transclude) {
-    }
   }
 }
 

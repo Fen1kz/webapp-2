@@ -3,38 +3,21 @@ module.exports = factory;
 factory.$inject = ['APP_NAME', '$http', '$q', 'Storage'];
 function factory(APP_NAME, $http, $q, Storage) {
   const USER_KEY = APP_NAME + '_user';
-  const TOKEN_KEY = APP_NAME + '_token';
-
-  //var userStr = Storage.get(USER_KEY);
-  //var tokenStr = Storage.get(TOKEN_KEY);
-  //var Promise = $q((resolve, reject) => {
-  //  if (userStr === null) {
-  //    if (tokenStr === null) {
-  //    } else {
-  //      $http.get('/auth')
-  //        .then((response) => {
-  //          console.log('response', response);
-  //        })
-  //    }
-  //  }
-  //});
-
   var $this = {
-    init: () => {
-      //return Promise;
-    }
-    , USER_KEY: USER_KEY
-    , TOKEN_KEY: TOKEN_KEY
+    USER_KEY: USER_KEY
     , login: (formData) => {
       return $http.post('/auth/login', formData)
         .then((response) => {
           if (typeof response.data !== 'object') throw 'wrong response';
-          Storage.set(USER_KEY, response.data);
+          var user = response.data;
+          user.scopes.push('auth');
+          Storage.set(USER_KEY, user);
         });
     }
     , logout: () => {
       Storage.remove(USER_KEY);
       $this.$user = null;
+      return $q.when(true);
     }
     , get user() {
       if (!$this.$user) $this.$user = Storage.get(USER_KEY);

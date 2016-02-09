@@ -31,6 +31,6 @@ module.exports = class DefaultRESTCtrl extends require('./default.ctrl') {
   }
 
   delete(req) {
-    return this.model.destroy(req.body.id);
+    return this.model.destroy(req.params.id);
   }
 };

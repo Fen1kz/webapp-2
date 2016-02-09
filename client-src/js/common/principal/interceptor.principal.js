@@ -8,6 +8,20 @@ function interceptor($q, $injector) {
       var token = Principal.user ? Principal.user.token : null;
       if (token) config.headers['x-access-token'] = token;
       return config;
+    },
+    responseError: function (response) {
+      var Principal = $injector.get('Principal');
+      var $state = $injector.get('$state');
+      var token = Principal.user ? Principal.user.token : null;
+      if (token) {
+        $state.go('app.login', {
+          nextState: {
+            name: $state.$current.name
+            , params: $state.$current.params
+          }
+        }).then(() => Principal.logout());
+      }
+      return $q.reject(response);
     }
   };
 }

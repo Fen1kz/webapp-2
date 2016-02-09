@@ -2,6 +2,9 @@ module.exports = (app) => {
   app.config(['$stateProvider', ($stateProvider) => {
     $stateProvider.state('app.login', {
       url: '/login'
+      , params: {
+        nextState: null
+      }
       , views: {
         'main@': {
           template: require('./tmpl.login.html')

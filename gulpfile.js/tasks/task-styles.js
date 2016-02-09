@@ -7,7 +7,9 @@ module.exports = function (gulp, $, config) {
   var compileMinify = () => (throughPipes((readable) => (readable
       .pipe($.sourcemaps.init())
       .pipe($.if('*.scss', $.sass().on('error', $.sass.logError)))
-      .pipe($.cssnano())
+      .pipe($.cssnano({
+        zindex: false
+      }))
       .pipe($.sourcemaps.write())
   )));
 

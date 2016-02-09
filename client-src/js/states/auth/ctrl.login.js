@@ -1,9 +1,18 @@
 module.exports = LoginCtrl;
 
-LoginCtrl.$inject = ['$state', 'Principal'];
-function LoginCtrl($state, Principal) {
+LoginCtrl.$inject = ['$state', '$stateParams', 'Principal'];
+function LoginCtrl($state, $stateParams, Principal) {
+  if (Principal.user) {
+    this.item = {
+      login: Principal.user.login
+    }
+  }
   this.submitForm = () => Principal.login(this.item)
     .then(() => {
-      $state.go('app.home');
-    }) ;
+      if ($stateParams.nextState) {
+        $state.go($stateParams.nextState.name, $stateParams.params);
+      } else {
+        $state.go('app.home');
+      }
+    });
 }
