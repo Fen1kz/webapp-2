@@ -3,9 +3,7 @@
 @import "ui-router";
 @import "link-effects";
 
-* {
-  margin: 0;
-}
+@import "rl-char-class-tree";
 
 body {
   min-width: 360px;

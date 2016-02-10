@@ -1,0 +1,22 @@
+<form name="rlCharClassEdit">
+  <md-input-container>
+    <label>ID</label>
+    <input disabled ng-model="item._id"/>
+  </md-input-container>
+  <md-input-container>
+    <label>name</label>
+    <input ng-model="item.name"/>
+  </md-input-container>
+  <md-autocomplete
+    md-selected-item-change="item.parent_id = parent._id"
+    md-items="parent in searchClass(cclasses, parentSearchText)"
+    md-search-text="parentSearchText"
+    md-item-text="parent.name"
+    md-selected-item="item.parent"
+    md-select-on-match="true"
+  >
+    <span md-highlight-text="parentSearchText">{{parent.name}}</span>
+  </md-autocomplete>
+</form>
+
+

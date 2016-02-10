@@ -1,0 +1,41 @@
+.rl-char-class-tree {
+  position: relative;
+  list-style: none;
+
+  ul, li {
+    position: relative;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 1em;
+  }
+
+  li:before, li:after {
+    content: "";
+    position: absolute;
+    left: -12px;
+  }
+  li:before {
+    border-top: 1px solid #000;
+    top: 9px;
+    width: 8px;
+    height: 0;
+  }
+  li:after {
+    border-left: 1px solid #000;
+    height: 100%;
+    width: 0px;
+    top: 2px;
+  }
+  ul > li:last-child:after {
+    height: 8px;
+  }
+
+  a.active {
+    color: red;
+    &:before, &:after {
+      background: red;
+    }
+  }
+}

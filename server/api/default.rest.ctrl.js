@@ -14,8 +14,9 @@ module.exports = class DefaultRESTCtrl extends require('./default.ctrl') {
     this.serve('delete', '/:id', this.delete);
   }
 
-  findAll() {
-    return this.model.findAll();
+  findAll(req) {
+    console.log('findAll', req.query);
+    return this.model.findAll(req.query);
   }
 
   find(req) {

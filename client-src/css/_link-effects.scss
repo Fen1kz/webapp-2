@@ -10,6 +10,10 @@ a.opens {
   }
 }
 
+a.link {
+  cursor: pointer;
+}
+
 a.opens {
   &:before,
   &:after {
