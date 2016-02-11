@@ -32,6 +32,7 @@ var globs = {
     , extension: []
     , vendor: [
       `node_modules/angular-material/angular-material.scss`
+      , `node_modules/oi.select/dist/select.min.css`
     ]
   }
   , dist: `${dirs.dist}/**/*`

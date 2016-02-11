@@ -16,14 +16,7 @@
   </div>
 </md-toolbar>
 <div wa-breadcrumbs></div>
-<div layout="row">
-  <div flex></div>
-  <div style='position: relative' flex-xs=100 flex-sm=80 flex-md=60 flex=40>
-    <md-content ui-view='main'>
-    </md-content>
-  </div>
-  <div flex></div>
-</div>
+<div layout="row" ui-view="layout"></div>
 <wa-spinner ng-show="$root.waSpinner"></wa-spinner>
 </body>
 </html>

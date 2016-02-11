@@ -2,7 +2,6 @@
 @import "wa-spinner";
 @import "ui-router";
 @import "link-effects";
-
 @import "rl-char-class-tree";
 
 body {
@@ -10,6 +9,52 @@ body {
   overflow-x: hidden;
 }
 
+/*
+* fixes
+*/
 .md-dialog-container {
   z-index: 100;
+}
+
+md-autocomplete[md-floating-label] md-input-container {
+  padding-bottom: 2px;
+  margin: 0;
+}
+
+/*
+* oi.select
+*/
+
+oi-select {
+  margin: 0;
+  padding: 2px;
+
+  .select-search {
+    border-radius: 0;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+  }
+
+  &.focused .select-search {
+    box-shadow: none;
+  }
+
+  &.open .select-search {
+    border-radius: 0;
+  }
+
+  .select-search-list {
+    padding: 0;
+
+    .select-search-list-item {
+      font-size: inherit;
+      margin: 0;
+      padding: 0.6em 0.3em;
+    }
+
+    .select-search-list-item_selection {
+      background: none;
+    }
+  }
 }

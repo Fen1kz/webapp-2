@@ -1,22 +1,28 @@
-<form name="rlCharClassEdit">
-  <md-input-container>
-    <label>ID</label>
-    <input disabled ng-model="item._id"/>
-  </md-input-container>
-  <md-input-container>
-    <label>name</label>
-    <input ng-model="item.name"/>
-  </md-input-container>
-  <md-autocomplete
-    md-selected-item-change="item.parent_id = parent._id"
-    md-items="parent in searchClass(cclasses, parentSearchText)"
-    md-search-text="parentSearchText"
-    md-item-text="parent.name"
-    md-selected-item="item.parent"
-    md-select-on-match="true"
-  >
-    <span md-highlight-text="parentSearchText">{{parent.name}}</span>
-  </md-autocomplete>
+<form name="rlCharClassEdit" md-whiteframe="1" layout-fill>
+  <div layout-margin>
+    <md-input-container layout-fill>
+      <label>ID</label>
+      <input disabled ng-model="item._id"/>
+    </md-input-container>
+    <md-input-container layout-fill>
+      <label>name</label>
+      <input ng-model="item.name" ng-disabled="!item"/>
+    </md-input-container>
+    <oi-select
+      layout-fill
+      ng-disabled="!item"
+      oi-options="cclass._id as cclass.name disable when cclass.$disabled for cclass in filterParentClasses() track by cclass._id"
+      ng-model="item.parent_id">
+    </oi-select>
+    <!--multiple-->
+    <!--multiple-limit="1"-->
+    <!--<oi-select-->
+      <!--ng-disabled="!item"-->
+      <!--oi-options="cclass.name for cclass in cclasses track by cclass._id"-->
+      <!--ng-model="item.$children"-->
+      <!--ng-model-options="{ getterSetter: true }">-->
+    <!--</oi-select>-->
+  </div>
 </form>
 
 

@@ -4,11 +4,15 @@ require('angular-material');
 require('angular-messages');
 require('angular-mocks');
 require('js-data');
+require('oi.select');
 require('js-data-angular');
+
+global._ = require('lodash');
 
 const APP_NAME = 'rlike';
 const app = angular.module(APP_NAME, [
   'ui.router'
+  , 'oi.select'
   , 'ngMessages'
   , 'ngMaterial'
   , 'js-data'
@@ -23,7 +27,10 @@ app.config(['$urlRouterProvider', '$stateProvider', ($urlRouterProvider, $stateP
       url: ''
       , abstract: true
       , views: {
-        'toolbar@': {
+        'layout@': {
+          template: require('./layout/layout-column.html')
+        }
+        , 'toolbar@': {
           template: `
 <md-button ui-sref="app.home">{{::APP_NAME}}</md-button>
 <md-button ui-sref="app.login" ng-hide="$root.checkScope('auth')">login</md-button>

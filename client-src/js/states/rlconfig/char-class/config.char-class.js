@@ -16,6 +16,7 @@ module.exports = (app) => {
             , controllerAs: 'ctrl'
           }
         }
+        , full: true
         , scopes: ['admin']
       });
   }]);

@@ -16,6 +16,7 @@ module.exports = (gulp, $, config) => {
     , production: $.util.env.production
     , dependencies: [
       'angular'
+      , 'oi.select'
       , 'angular-animate'
       , 'angular-ui-router'
       , 'angular-material'
