@@ -10,6 +10,7 @@ function directive($compile) {
     }
     , template: require('./rl-char-class-edit.html')
     , controller: ['$scope', 'DS', function ($scope, DS) {
+      var ctrl = this;
       DS.definitions.CharClass.bindAll({}, $scope, 'cclasses');
 
       //$scope.$watch('item', (value) => {
@@ -22,6 +23,24 @@ function directive($compile) {
 
         }
       });
+
+      ctrl.$disabled = [];
+
+      $scope.parentSelectClicked = ($event) => {
+        //$event;
+        debugger;
+      };
+
+      //$scope.$watchGroup(['item', 'item.parent_id'], function(newValues, oldValues) {
+      //  if (newValues[0] && oldValues[0]) {
+      //    console.log(oldValues[0].name, DS.definitions.CharClass.get(oldValues[1]).name, '>', newValues[0].name, DS.definitions.CharClass.get(newValues[1]).name)
+      //  }
+      //  if (newValues[0] && newValues[0].parent_id !== newValues[1]) {
+      //    //if (newValues[1] && DS.definitions.CharClass.get(newValues[1]).$disabled) {
+      //    //  $scope.item.parent_id = oldValues[1];
+      //    //}
+      //  }
+      //});
 
       var searchChildren = (result, item) => {
         return item.children.reduce((result, child) => {
@@ -39,19 +58,12 @@ function directive($compile) {
         $scope.cclasses.forEach((ccls) => {
           delete ccls.$disabled;
         });
-        searchChildren([$scope.item], $scope.item).forEach((ccls) => {
+        ctrl.$disabled = searchChildren([$scope.item], $scope.item);
+        ctrl.$disabled.forEach((ccls) => {
           ccls.$disabled = true;
         });
         return $scope.cclasses;
       };
-
-
-      $scope.searchClass = (array, name) => {
-        var regex = new RegExp(name, 'ig');
-        return array.filter((cclass) => {
-          return regex.test(cclass.name);
-        });
-      }
     }]
   }
 }

@@ -13,7 +13,13 @@ function directive($compile) {
     , replace: true
     , template: `
 <li class='cclass'>
-  <a class='link gates' ng-class='{active: $root.stateParams.cclass._id === item._id}' ng-mouseenter='emit("mouseenter", item)' ng-mouseleave='emit("mouseleave", item)' ng-click='emit("select", item)'>{{item.name}}</a>
+  <a class='link gates'
+  ng-class='{active: $root.stateParams.cclass._id === item._id}'
+  ng-mouseenter='emit("mouseenter", item)'
+  ng-mouseleave='emit("mouseleave", item)'
+  ng-click='emit("select", item)'>
+  {{item.name}} {{item.$disabled}}
+  </a>
 </li>`
     , link: function (scope, element, attrs) {
       scope.$watch('item.children.length', (length, old) => {
