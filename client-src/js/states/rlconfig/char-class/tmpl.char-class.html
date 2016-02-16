@@ -1,7 +1,7 @@
 ﻿<div layout="row" layout-padding>
   <div flex>
     <ul class="rl-char-class-tree">
-      <rl-char-class-tree ng-repeat='item in ctrl.items track by item._id' item=item></rl-char-class-tree>
+      <rl-char-class-tree ng-repeat='item in ctrl.items track by item._id' item='item' selection-mode="ctrl.parentSelection"></rl-char-class-tree>
     </ul>
   </div>
   <div flex>

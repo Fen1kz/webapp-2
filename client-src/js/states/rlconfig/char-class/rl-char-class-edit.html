@@ -11,6 +11,7 @@
     <oi-select
       layout-fill
       ng-disabled="!item"
+      emit-open-close="rlCharClassEdit.parentSelection.open-close"
       oi-options="cclass._id as cclass.name disable when cclass.$disabled for cclass in filterParentClasses() track by cclass._id"
       ng-model="item.parent_id">
     </oi-select>

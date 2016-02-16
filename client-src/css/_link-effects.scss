@@ -1,5 +1,14 @@
 $link-color: #0091ea;
 
+a[disabled] {
+  cursor: not-allowed !important;
+  color: #999 !important;
+  pointer-events: none;
+  &:before, &:after {
+    background: #999 !important;
+  }
+}
+
 a.gates,
 a.opens {
   color: $link-color;

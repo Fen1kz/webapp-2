@@ -9,16 +9,18 @@ function directive($compile) {
     restrict: 'E'
     , scope: {
       item: '='
+      , selectionMode: '='
     }
     , replace: true
     , template: `
 <li class='cclass'>
   <a class='link gates'
   ng-class='{active: $root.stateParams.cclass._id === item._id}'
-  ng-mouseenter='emit("mouseenter", item)'
-  ng-mouseleave='emit("mouseleave", item)'
-  ng-click='emit("select", item)'>
-  {{item.name}} {{item.$disabled}}
+  ng-mouseenter='!selectionMode && emit("mouseenter", item)'
+  ng-mouseleave='!selectionMode && emit("mouseleave", item)'
+  ng-disabled='selectionMode && item.$disabled'
+  ng-mousedown='emit("rlCharClassTree.selected", item)'>
+  {{item.name}}
   </a>
 </li>`
     , link: function (scope, element, attrs) {
@@ -30,15 +32,12 @@ function directive($compile) {
           element.find('ul').remove();
         }
         if (length > 0 && (length === old || !old)) {
-          var childElement = $compile(angular.element(`<ul><rl-char-class-tree ng-repeat='child in item.children' item='child'></rl-char-class-tree></ul>`))(scope);
+          var childElement = $compile(angular.element(`<ul><rl-char-class-tree ng-repeat='child in item.children' item='child' selection-mode='selectionMode'></rl-char-class-tree></ul>`))(scope);
           element.append(childElement);
         }
       });
     }
     , controller: ['$scope', function ($scope) {
-      //$scope.$on('$destroy', () => {
-      //  console.log('destroyed', $scope.item.name);
-      //});
       $scope.emit = (event, item) => $scope.$emit(event, item);
     }]
   }

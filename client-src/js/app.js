@@ -1,4 +1,6 @@
-var angular = require('angular');
+global._ = require('lodash');
+global.angular = require('angular');
+
 require('angular-ui-router');
 require('angular-material');
 require('angular-messages');
@@ -6,8 +8,6 @@ require('angular-mocks');
 require('js-data');
 require('oi.select');
 require('js-data-angular');
-
-global._ = require('lodash');
 
 const APP_NAME = 'rlike';
 const app = angular.module(APP_NAME, [

@@ -1,6 +1,7 @@
 module.exports = (app) => {
   require('./wa-spinner/wa-spinner')(app);
   require('./wa-spinner/interceptor.wa-spinner')(app);
+  require('./oi.select/oi.select-decorator')(app);
 
   app.config(['$httpProvider', ($httpProvider) => $httpProvider.interceptors.push(require('./interceptor.toast'))]);
 
@@ -16,4 +17,6 @@ module.exports = (app) => {
   app.directive('waBreadcrumbs', require('./wa-breadcrumbs'));
   app.directive('waCheckbox', require('./wa-checkbox'));
   app.directive('waTranscludeScope', require('./wa-transclude-scope'));
+
+
 };

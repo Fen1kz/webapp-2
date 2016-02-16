@@ -18,29 +18,24 @@ function directive($compile) {
       //});
       $scope.searchClass_disabled = [];
 
-      $scope.$watch('item', (value) => {
-        if (value) {
-
+      var oldItem;
+      $scope.$watchGroup(['item', 'item.parent_id'], (newValues, oldValues) => {
+        let newItem = newValues[0];
+        let newParentId = newValues[1];
+        let oldParentId = oldValues[1];
+        //console.log('item',(oldItem ? oldItem.name : null), '>', (newItem ? newItem.name : null));
+        //console.log('item.parent_id',(oldParentId ? DS.definitions.CharClass.get(oldParentId).name : null), '>', (newParentId ? DS.definitions.CharClass.get(newParentId).name : null))
+        if (newItem && newItem === oldItem) {
+          if (newParentId && DS.definitions.CharClass.get(newParentId).$disabled) {
+            newItem.parent_id = oldParentId;
+          }
         }
+        oldItem = newValues[0];
       });
 
-      ctrl.$disabled = [];
-
-      $scope.parentSelectClicked = ($event) => {
-        //$event;
-        debugger;
-      };
-
-      //$scope.$watchGroup(['item', 'item.parent_id'], function(newValues, oldValues) {
-      //  if (newValues[0] && oldValues[0]) {
-      //    console.log(oldValues[0].name, DS.definitions.CharClass.get(oldValues[1]).name, '>', newValues[0].name, DS.definitions.CharClass.get(newValues[1]).name)
-      //  }
-      //  if (newValues[0] && newValues[0].parent_id !== newValues[1]) {
-      //    //if (newValues[1] && DS.definitions.CharClass.get(newValues[1]).$disabled) {
-      //    //  $scope.item.parent_id = oldValues[1];
-      //    //}
-      //  }
-      //});
+      $scope.$on('rlCharClass.parentSelection.selected', (_, item) => {
+        $scope.item.parent_id = item._id;
+      });
 
       var searchChildren = (result, item) => {
         return item.children.reduce((result, child) => {
@@ -54,6 +49,7 @@ function directive($compile) {
         }, result);
       };
 
+      ctrl.$disabled = [];
       $scope.filterParentClasses = () => {
         $scope.cclasses.forEach((ccls) => {
           delete ccls.$disabled;
